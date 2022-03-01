@@ -65,43 +65,61 @@ li a:hover:not(.active) {
 <body>
 
 <div class="aaaa">
-  <ul>
-    <li><a class="active" href="index.php?module=home">Home</a></li>
-    <li><a href="index.php?module=news">News</a></li>
-    <li><a href="index.php?module=contact">Contact</a></li>
-    <li><a href="index.php?module=about">About</a></li>
-    <li>
-    <a class="has-arrow" href="#" aria-expanded="true"><span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile 1</span></a>
-        <ul>
-            <li><a  href="index.php?module=home">Profile 1 Home</a></li>
-            <li><a href="index.php?module=news">Profile 1 News</a></li>
-            <li><a href="index.php?module=contact">Profile 1 Contact</a></li>
-            <li><a href="index.php?module=about">Profile 1 About</a></li>
-            <li><a href="index.php?module=about">Profile 1 About</a></li>
-        </ul>
-    </li>
-    <li>
-    <a class="has-arrow" href="#" aria-expanded="true"><span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile 2</span></a>
-        <ul>
-            <li><a  href="index.php?module=home">Profile 2 Home</a></li>
-            <li><a href="index.php?module=news">Profile 2 News</a></li>
-            <li><a href="index.php?module=contact">Profile 2 Contact</a></li>
-            <li><a href="index.php?module=about">Profile 2 About</a></li>
-            <li><a href="index.php?module=about">Profile 2 About</a></li>
-        </ul>
-    </li>
-    <li>
-    <a class="has-arrow" href="#" aria-expanded="true"><span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile 2</span></a>
-        <ul>
-            <li><a  href="index.php?module=home">Home</a></li>
-            <li><a href="index.php?module=news">News</a></li>
-            <li><a href="index.php?module=contact">Contact</a></li>
-            <li><a href="index.php?module=about">About</a></li>
-            <li><a href="index.php?module=about">About</a></li>
-        </ul>
-    </li>
-  </ul>
+    <ul>
+        <li><a class="active" href="index.php?module=home">Home</a></li>
+        <li><a href="index.php?module=news">News</a></li>
+        <li><a href="index.php?module=contact">Contact</a></li>
+        <li><a href="index.php?module=about">About</a></li>
+        <li>
+            <a class="has-arrow" href="#" aria-expanded="true">
+                <span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile 1</span>
+            </a>
+            <ul>
+                <li><a href="index.php?module=home">Profile 1 Home</a></li>
+                <li><a href="index.php?module=news">Profile 1 News</a></li>
+                <li><a href="index.php?module=contact">Profile 1 Contact</a></li>
+                <li><a href="index.php?module=about">Profile 1 About</a></li>
+                <li><a href="index.php?module=about">Profile 1 About</a></li>
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="#" aria-expanded="true">
+                <span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile 2</span>
+            </a>
+            <ul>
+                <li><a href="index.php?module=home">Profile 2 Home</a></li>
+                <li><a href="index.php?module=news">Profile 2 News</a></li>
+                <li><a href="index.php?module=contact">Profile 2 Contact</a></li>
+                <li><a href="index.php?module=about">Profile 2 About</a></li>
+                <li><a href="index.php?module=about">Profile 2 About</a></li>
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="#" aria-expanded="true">
+                <span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile 3</span>
+            </a>
+            <ul>
+                <li>
+                    <a class="has-arrow" href="#" aria-expanded="true">
+                        <span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile 3 Home</span>
+                    </a>
+                    <ul>
+                        <li><a href="index.php?module=home">Profile 3 Home Home</a></li>
+                        <li><a href="index.php?module=news">Profile 3 Home News</a></li>
+                        <li><a href="index.php?module=contact">Profile 3 Home Contact</a></li>
+                        <li><a href="index.php?module=about">Profile 3 Home About</a></li>
+                        <li><a href="index.php?module=about">Profile 3 Home About</a></li>
+                    </ul>
+                </li>
+                <li><a href="index.php?module=news">Profile 3 News</a></li>
+                <li><a href="index.php?module=contact">Profile 3 Contact</a></li>
+                <li><a href="index.php?module=about">Profile 3 About</a></li>
+                <li><a href="index.php?module=about">Profile 3About</a></li>
+            </ul>
+        </li>
+    </ul>
 </div>
+
 
 
 
