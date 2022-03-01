@@ -71,7 +71,7 @@ li a:hover:not(.active) {
     <li><a href="index.php?module=about">About</a></li>
     <li>
         <ul>
-            <li><a class="active" href="index.php?module=home">Home</a></li>
+            <li><a  href="index.php?module=home">Home</a></li>
             <li><a href="index.php?module=news">News</a></li>
             <li><a href="index.php?module=contact">Contact</a></li>
             <li><a href="index.php?module=about">About</a></li>
