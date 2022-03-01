@@ -28,7 +28,7 @@ body {
   margin: 0;
 }
 
-ul {
+.aaaa {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -64,12 +64,34 @@ li a:hover:not(.active) {
 </head>
 <body>
 
-<ul>
+<div class="aaaa">
+  <ul>
     <li><a class="active" href="index.php?module=home">Home</a></li>
     <li><a href="index.php?module=news">News</a></li>
     <li><a href="index.php?module=contact">Contact</a></li>
     <li><a href="index.php?module=about">About</a></li>
     <li>
+    <a class="has-arrow" href="#" aria-expanded="true"><span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile 1</span></a>
+        <ul>
+            <li><a  href="index.php?module=home">Profile 1 Home</a></li>
+            <li><a href="index.php?module=news">Profile 1 News</a></li>
+            <li><a href="index.php?module=contact">Profile 1 Contact</a></li>
+            <li><a href="index.php?module=about">Profile 1 About</a></li>
+            <li><a href="index.php?module=about">Profile 1 About</a></li>
+        </ul>
+    </li>
+    <li>
+    <a class="has-arrow" href="#" aria-expanded="true"><span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile 2</span></a>
+        <ul>
+            <li><a  href="index.php?module=home">Profile 2 Home</a></li>
+            <li><a href="index.php?module=news">Profile 2 News</a></li>
+            <li><a href="index.php?module=contact">Profile 2 Contact</a></li>
+            <li><a href="index.php?module=about">Profile 2 About</a></li>
+            <li><a href="index.php?module=about">Profile 2 About</a></li>
+        </ul>
+    </li>
+    <li>
+    <a class="has-arrow" href="#" aria-expanded="true"><span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile 2</span></a>
         <ul>
             <li><a  href="index.php?module=home">Home</a></li>
             <li><a href="index.php?module=news">News</a></li>
@@ -78,7 +100,10 @@ li a:hover:not(.active) {
             <li><a href="index.php?module=about">About</a></li>
         </ul>
     </li>
-</ul>
+  </ul>
+</div>
+
+
 
 
 
