@@ -1,7 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-<?php  
+
+
+<?php
+
+
+class ArabicssDB
+{
+    
+    protected $servername = "localhost";
+    protected $username = "root";
+    protected $password = "root";
+    protected $database = "role-based-access ";
+    
+    public $connection;
+    
+    
+    public function __construct()
+    {
+        $this->open_db_connection();
+        
+    }
+    
+    
+    public function open_db_connection()
+    {
+        
+        $this->connection = new mysqli($this->servername, $this->username, $this->password, $this->database);
+        
+        // Check connection
+        if ($this->connection->connect_error) {
+            die("Unable to connect to server" . $this->servername . ".!!!, Please check your connection, and if still the same problem, Please contact your administrator. Thanks for trusting US....... Arabicss Software Development Team");
+            
+        }
+        /*echo "connected";*/
+        
+        
+    }
+    public function close_db_connection()
+    {
+        $this->connection->close();
+        /*echo "connection closed";*/
+        
+    }
+    
+    public function query($sql)
+    {
+        $result = $this->connection->query($sql);
+        return $result;
+        
+        
+    }
+
+    public function multi_query($sql)
+    {
+        $result = $this->connection->multi_query($sql);
+        return $result;
+        
+        
+    }
+    
+    public function escape_string($string)
+    {
+        $escaped_string = $this->connection->real_escape_string($string);
+        return $escaped_string;
+        
+    }
+    
+    
+}
+
+
+class UserGroup //extends User
+{
+    public $username;
+    public $id;
+    public $name;
+    
+    
+    public function get_pages()
+    {
+        
+        $userGroupId = $this->id;
+        $usergroup   = new ArabicssDB;
+        
+        $sql = "SELECT * FROM `systempages` WHERE `pageId` IN (SELECT `pageId` FROM `usergroupprivileges` WHERE `groupName`= (SELECT `usergroups`.`groupName` FROM `users`, `usergroups` WHERE `users`.`groupId`= `usergroups`.`id` AND `username`='muhammad.elnahtta' AND `systemtype`='web' AND `userType`='p' ))";
+        
+        $result = $usergroup->query($sql);
+        
+        $usergroup->close_db_connection();
+        return $result;
+        
+        
+    }
+    
+    
+    
+}
+
+
 
 
 if (isset($_GET['module'])) {
@@ -65,6 +163,20 @@ li a:hover:not(.active) {
 <body>
 
 <div class="aaaa">
+
+<?php 
+
+// $user_group = new UserGroup();
+// $user_pages = $user_group->get_pages();
+// // var_dump($user_pages);
+// while($row = $user_pages->fetch_assoc()) {
+// 	echo "<li><a class='has-arrow' aria-expanded='true'>".$row["groupName"]."</a>
+// 	<ul aria-expanded='true' class='collapse'>
+// 	<li><a href='index?module=".$row["pageName"]."'>".$row["pageName"]."</a></li>"."</ul></li>";
+//   }
+
+
+?>
     <ul>
         <li><a class="active" href="index.php?module=home">Home</a></li>
         <li><a href="index.php?module=news">News</a></li>
