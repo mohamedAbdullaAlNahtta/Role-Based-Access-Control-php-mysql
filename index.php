@@ -6,13 +6,13 @@
 <?php
 
 
-class ArabicssDB
+class roleBasedDB
 {
     
     protected $servername = "localhost";
     protected $username = "root";
     protected $password = "root";
-    protected $database = "role-based-access ";
+    protected $database = "role-based-access";
     
     public $connection;
     
@@ -72,32 +72,16 @@ class ArabicssDB
 }
 
 
-class UserGroup //extends User
-{
-    public $username;
-    public $id;
-    public $name;
-    
-    
-    public function get_pages()
-    {
-        
-        $userGroupId = $this->id;
-        $usergroup   = new ArabicssDB;
+
+        $usergroup   = new roleBasedDB;
         
         $sql = "SELECT * FROM `systempages` WHERE `pageId` IN (SELECT `pageId` FROM `usergroupprivileges` WHERE `groupName`= (SELECT `usergroups`.`groupName` FROM `users`, `usergroups` WHERE `users`.`groupId`= `usergroups`.`id` AND `username`='muhammad.elnahtta' AND `systemtype`='web' AND `userType`='p' ))";
         
         $result = $usergroup->query($sql);
         
         $usergroup->close_db_connection();
-        return $result;
-        
-        
-    }
-    
-    
-    
-}
+
+ 
 
 
 
