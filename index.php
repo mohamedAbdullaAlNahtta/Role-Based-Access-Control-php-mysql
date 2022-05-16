@@ -170,8 +170,45 @@ li a:hover:not(.active) {
     <ul>
         <?php
 
+// $db = new RoleBasedDB;
+// $menu_sql_query ="SELECT * FROM `module_menue` WHERE `id_parent`='' ORDER BY `order_no`;";
+// $res = $db->query($menu_sql_query);
+
+// $resCount = $res->num_rows;
+
+// while($row = $res->fetch_assoc()) {
+//   $id[] = $row["id"];
+//   $id_parent 	[] = $row["id_parent"];
+//   $icon[] = $row["icon"];
+//   $link[] = $row["link"];
+//   $name[] = $row["name"];
+//   $type[] = $row["type"];
+//   $order_no [] = $row["order_no"];
+// }
+
+// $navbar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
+//    "link"=>$link, "name"=>$name, "type"=>$type, "order_no"=>$order_no);
+
+//   $id[] = '';
+//   $id_parent 	[] = '';
+//   $icon[] = '';
+//   $link[] = '';
+//   $name[] = '';
+//   $type[] = '';
+//   $order_no [] ='';
+
+//   $_nvagationbar='';
+//   for ($i=0; $i < $resCount ; $i++) {
+     
+//     $_nvagationbar .= "<li><a href='".$navbar["link"][$i]."' >".$navbar["name"][$i]."</a></li>";
+    
+// }
+// echo $_nvagationbar;
+// var_dump($navbar);
+
+
 $db = new RoleBasedDB;
-$menu_sql_query ="SELECT * FROM `module_menue` WHERE `id_parent`='' ORDER BY `order_no`;";
+$menu_sql_query ="SELECT * FROM `module_menue` WHERE `id_parent`='Profile' ORDER BY `order_no`;";
 $res = $db->query($menu_sql_query);
 
 $resCount = $res->num_rows;
@@ -204,7 +241,6 @@ $navbar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
     
 }
 echo $_nvagationbar;
-// var_dump($navbar);
 
 
 
