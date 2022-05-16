@@ -197,11 +197,13 @@ $navbar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
   $type[] = '';
   $order_no [] ='';
 
-  for ($i=0; $i < $resCount ; $i++) { 
-    echo "<li><a href='".$navbar["link"][$i]."' >".$navbar["name"][$i]."</a></li>";
+  $_nvagationbar='';
+  for ($i=0; $i < $resCount ; $i++) {
+     
+    $_nvagationbar .= "<li><a href='".$navbar["link"][$i]."' >".$navbar["name"][$i]."</a></li>";
     
 }
-
+echo $_nvagationbar;
 // var_dump($navbar);
 
 
