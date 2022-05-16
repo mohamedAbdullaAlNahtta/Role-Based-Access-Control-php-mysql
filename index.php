@@ -5,7 +5,9 @@
 
 <?php
 
-
+////////////////////////////////////////////////////
+// db class for database connection 
+////////////////////////////////////////////////////
 class roleBasedDB
 {
     
@@ -168,26 +170,49 @@ li a:hover:not(.active) {
         <li><a href="index.php?module=about">About</a></li>
         <li>
             <a class="has-arrow" href="#" aria-expanded="true">
-                <span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile 1</span>
+                <span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile</span>
             </a>
             <ul>
-                <li><a href="index.php?module=home">Profile 1 Home</a></li>
-                <li><a href="index.php?module=news">Profile 1 News</a></li>
-                <li><a href="index.php?module=contact">Profile 1 Contact</a></li>
-                <li><a href="index.php?module=about">Profile 1 About</a></li>
-                <li><a href="index.php?module=about">Profile 1 About</a></li>
+                <li><a href="index.php?module=home">Profile  Home</a></li>
+                <li><a href="index.php?module=news">Profile  News</a></li>
+                <li><a href="index.php?module=contact">Profile  Contact</a></li>
+                <li><a href="index.php?module=about">Profile  About</a></li>
+                <li><a href="index.php?module=about">Profile  About</a></li>
             </ul>
         </li>
         <li>
             <a class="has-arrow" href="#" aria-expanded="true">
-                <span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile 2</span>
+                <span class="hide-menu"><i class="mdi mdi-audiobook"></i>Company</span>
             </a>
             <ul>
-                <li><a href="index.php?module=home">Profile 2 Home</a></li>
-                <li><a href="index.php?module=news">Profile 2 News</a></li>
-                <li><a href="index.php?module=contact">Profile 2 Contact</a></li>
-                <li><a href="index.php?module=about">Profile 2 About</a></li>
-                <li><a href="index.php?module=about">Profile 2 About</a></li>
+                <li><a href="index.php?module=home">Company Home</a></li>
+                <li><a href="index.php?module=news">Company News</a></li>
+                <li><a href="index.php?module=contact">Company Contact</a></li>
+                <li><a href="index.php?module=about">Company About</a></li>
+                <li><a href="index.php?module=about">Company About</a></li>
+            </ul>
+        </li>
+        <li>
+            <a class="has-arrow" href="#" aria-expanded="true">
+                <span class="hide-menu"><i class="mdi mdi-audiobook"></i>institution</span>
+            </a>
+            <ul>
+                <li><a href="index.php?module=home">institution Home</a></li>
+                <li><a href="index.php?module=news">institution News</a></li>
+                <li><a href="index.php?module=contact">institution Contact</a></li>
+                <li><a href="index.php?module=about">institution About</a></li>
+                <li>
+                    <a class="has-arrow" href="#" aria-expanded="true">
+                    <span class="hide-menu"><i class="mdi mdi-audiobook"></i>institution user</span>
+                    </a>
+                    <ul>
+                        <li><a href="index.php?module=home">institution user Home</a></li>
+                        <li><a href="index.php?module=news">institution user News</a></li>
+                        <li><a href="index.php?module=contact">institution user Contact</a></li>
+                        <li><a href="index.php?module=about">institution user About</a></li>
+                        <li><a href="index.php?module=about">institution user About</a></li>
+                    </ul>
+                </li>
             </ul>
         </li>
     </ul>
