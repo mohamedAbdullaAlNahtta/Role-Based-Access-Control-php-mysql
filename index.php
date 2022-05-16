@@ -177,7 +177,6 @@ li a:hover:not(.active) {
                 <li><a href="index.php?module=news">Profile  News</a></li>
                 <li><a href="index.php?module=contact">Profile  Contact</a></li>
                 <li><a href="index.php?module=about">Profile  About</a></li>
-                <li><a href="index.php?module=about">Profile  About</a></li>
             </ul>
         </li>
         <li>
@@ -188,7 +187,6 @@ li a:hover:not(.active) {
                 <li><a href="index.php?module=home">Company Home</a></li>
                 <li><a href="index.php?module=news">Company News</a></li>
                 <li><a href="index.php?module=contact">Company Contact</a></li>
-                <li><a href="index.php?module=about">Company About</a></li>
                 <li><a href="index.php?module=about">Company About</a></li>
             </ul>
         </li>
@@ -209,7 +207,6 @@ li a:hover:not(.active) {
                         <li><a href="index.php?module=home">institution user Home</a></li>
                         <li><a href="index.php?module=news">institution user News</a></li>
                         <li><a href="index.php?module=contact">institution user Contact</a></li>
-                        <li><a href="index.php?module=about">institution user About</a></li>
                         <li><a href="index.php?module=about">institution user About</a></li>
                     </ul>
                 </li>
