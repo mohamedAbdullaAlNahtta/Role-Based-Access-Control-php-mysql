@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////
 // db class for database connection 
 ////////////////////////////////////////////////////
-class roleBasedDB
+class RoleBasedDB
 {
     
     protected $servername = "localhost";
@@ -74,14 +74,18 @@ class roleBasedDB
 }
 
 
+class NavBarMenu
+{
+  public $menu = array();
 
-        $usergroup   = new roleBasedDB;
-        
-        $sql = "SELECT * FROM `systempages` WHERE `pageId` IN (SELECT `pageId` FROM `usergroupprivileges` WHERE `groupName`= (SELECT `usergroups`.`groupName` FROM `users`, `usergroups` WHERE `users`.`groupId`= `usergroups`.`id` AND `username`='muhammad.elnahtta' AND `systemtype`='web' AND `userType`='p' ))";
-        
-        $result = $usergroup->query($sql);
-        
-        $usergroup->close_db_connection();
+  public function get_root_menu($sql)
+  {
+    $db = new RoleBasedDB;
+    $res = $db->query($sql);
+    $this->menu=$res;
+  }
+}
+
 
  
 
@@ -164,6 +168,48 @@ li a:hover:not(.active) {
 
 ?>
     <ul>
+        <?php
+
+$db = new RoleBasedDB;
+$menu_sql_query ="SELECT * FROM `module_menue` WHERE `id_parent`='' ORDER BY `order_no`;";
+$res = $db->query($menu_sql_query);
+
+$resCount = $res->num_rows;
+
+while($row = $res->fetch_assoc()) {
+  $id[] = $row["id"];
+  $id_parent 	[] = $row["id_parent"];
+  $icon[] = $row["icon"];
+  $link[] = $row["link"];
+  $name[] = $row["name"];
+  $type[] = $row["type"];
+  $order_no [] = $row["order_no"];
+}
+
+$navbar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
+   "link"=>$link, "name"=>$name, "type"=>$type, "order_no"=>$order_no);
+
+  $id[] = '';
+  $id_parent 	[] = '';
+  $icon[] = '';
+  $link[] = '';
+  $name[] = '';
+  $type[] = '';
+  $order_no [] ='';
+
+  for ($i=0; $i < $resCount ; $i++) { 
+    echo "<li><a href='".$navbar["link"][$i]."' >".$navbar["name"][$i]."</a></li>";
+    
+}
+
+// var_dump($navbar);
+
+
+
+
+        
+        
+        ?>
         <li><a class="active" href="index.php?module=home">Home</a></li>
         <li><a href="index.php?module=news">News</a></li>
         <li><a href="index.php?module=contact">Contact</a></li>
