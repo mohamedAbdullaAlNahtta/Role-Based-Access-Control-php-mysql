@@ -203,10 +203,32 @@ function get_roots_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_l
     // genrate mysql query
     $res = $db->query($menu_sql_query);
 
+    while($row = $res->fetch_assoc()) {
+      $id[] = $row["id"];
+      $id_parent[] = $row["id_parent"];
+      $icon[] = $row["icon"];
+      $link[] = $row["link"];
+      $name[] = $row["name"];
+      $type[] = $row["type"];
+      $order_no [] = $row["order_no"];
+    }
+    
+    $navbar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
+       "link"=>$link, "name"=>$name, "type"=>$type, "order_no"=>$order_no);
+      
+      // rest variables to avoid confilct 
+      $id[] = '';
+      $id_parent 	[] = '';
+      $icon[] = '';
+      $link[] = '';
+      $name[] = '';
+      $type[] = '';
+      $order_no [] ='';
+
 
     $resCount = $res->num_rows;
 
-    $query_data = array("res"=>$res, "resCount"=>$resCount);
+    $query_data = array("res"=>$res, "resCount"=>$resCount, "navbar"=>$navbar);
     return $query_data;
 
 
@@ -214,33 +236,14 @@ function get_roots_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_l
 
 
 // the below function will return an array for both the count and he result 
-$res= get_roots_menu("","", "", "true");
+$res= get_roots_menu("profile","", "", "true");
 
-while($row = $res['res']->fetch_assoc()) {
-  $id[] = $row["id"];
-  $id_parent[] = $row["id_parent"];
-  $icon[] = $row["icon"];
-  $link[] = $row["link"];
-  $name[] = $row["name"];
-  $type[] = $row["type"];
-  $order_no [] = $row["order_no"];
-}
 
-$navbar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
-   "link"=>$link, "name"=>$name, "type"=>$type, "order_no"=>$order_no);
-
-  $id[] = '';
-  $id_parent 	[] = '';
-  $icon[] = '';
-  $link[] = '';
-  $name[] = '';
-  $type[] = '';
-  $order_no [] ='';
 
   $nvagationbar='<ul>';
   for ($i=0; $i < $res['resCount'] ; $i++) {
      
-    $nvagationbar .= "<li><a href='".$navbar["link"][$i]."' >".$navbar["name"][$i]."</a></li>";
+    $nvagationbar .= "<li><a href='".$res['navbar']["link"][$i]."' >".$res['navbar']["name"][$i]."</a></li>";
     
 }
 $nvagationbar .="</ul>";
