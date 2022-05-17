@@ -156,7 +156,7 @@ li a:hover:not(.active) {
 
 <?php 
 
-function get_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_link="")
+function get_roots_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_link="")
 {
 
     // new object for Arabicss db 
@@ -214,7 +214,7 @@ function get_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_link=""
 
 
 // the below function will return an array for both the count and he result 
-$res= get_menu('Profile',"", "", "true");
+$res= get_roots_menu("","", "", "true");
 
 while($row = $res['res']->fetch_assoc()) {
   $id[] = $row["id"];
