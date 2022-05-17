@@ -90,9 +90,23 @@ class NavBarMenu
     public function get_root_menu()
     {
       $menu = $this->get_menu("", "false", "", "", "");
-      $absloute_root_menu_tab =$menu['navbar'];
+      $root_menu =$menu['navbar'];
+      $menu_count= count($root_menu);
+
+      for ($i = 0; $i < $menu_count; $i++) {
+        $navgationBar='<ul>';
+        if($root_menu["link"][$i]=="tab"){
+          $navgationBar .= "<li><a href='".$root_menu["link"][$i]."' >".$root_menu["name"][$i]."</a></li>";
+        }elseif($root_menu["link"][$i]=="men"){
+          $navgationBar .= "<a class='has-arrow' href='#' aria-expanded='true'>";        
+          $navgationBar .= "<span class='hide-menu'><i class='mdi mdi-audiobook'></i>".$root_menu["name"][0]."</span>";
+          $navgationBar .="</a>";
+
+        }
+        $navgationBar .="</ul>";
+      }
       
-      return $absloute_root_menu_tab;
+
     }  
 
     public function get_menu($get_id="", $get_id_parent="", $get_type="", $get_HasChild="", $get_link="")
