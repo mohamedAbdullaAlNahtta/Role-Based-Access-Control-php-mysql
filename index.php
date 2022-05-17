@@ -78,14 +78,14 @@ class NavBarMenu
 {
 
  
-  public function genrate_menu_tab($tab)
-  {
+    // public function genrate_menu_tab($tab)
+    // {
 
-    $menu = $this->get_menu("", "true", "tab", "", "true");
-    $absloute_root_menu_tab =array_unique($menu['navbar']["id_parent"]);
-    
-    return $absloute_root_menu_tab;
-  } 
+    //   $menu = $this->get_menu("", "true", "tab", "", "true");
+    //   $absloute_root_menu_tab =array_unique($menu['navbar']["id_parent"]);
+      
+    //   return $absloute_root_menu_tab;
+    // } 
     
     public function get_root_menu()
     {
@@ -93,19 +93,16 @@ class NavBarMenu
       $root_menu =$menu['navbar'];
       $menu_count= count($root_menu);
 
+      $navgationBar ="<ul>";
+      // $mainRootNavBar = array();
       for ($i = 0; $i < $menu_count; $i++) {
-        $navgationBar='<ul>';
-        if($root_menu["link"][$i]=="tab"){
-          $navgationBar .= "<li><a href='".$root_menu["link"][$i]."' >".$root_menu["name"][$i]."</a></li>";
-        }elseif($root_menu["link"][$i]=="men"){
-          $navgationBar .= "<a class='has-arrow' href='#' aria-expanded='true'>";        
-          $navgationBar .= "<span class='hide-menu'><i class='mdi mdi-audiobook'></i>".$root_menu["name"][0]."</span>";
-          $navgationBar .="</a>";
-
-        }
-        $navgationBar .="</ul>";
+        
+        $navgationBar .= "<li><a href='".$root_menu["link"][$i]."' >".$root_menu["name"][$i]."</a></li>";
       }
-      
+      $navgationBar .="</ul>";
+
+      $query_data = array("root_menu_data"=>$root_menu, "navgationBar"=>$navgationBar);
+      return $query_data;
 
     }  
 
@@ -152,7 +149,7 @@ class NavBarMenu
         {
         $whereArr[] = "`type` = '{$get_type}'";
         }
-        if ($get_HasChild != "") {
+        if ($get_HasChild != "" && $get_HasChild != "true") {
           $whereArr[] = "`HasChild` = '{$get_HasChild}'";
         } 
 
@@ -195,11 +192,16 @@ class NavBarMenu
           $link[] = $row["link"];
           $name[] = $row["name"];
           $type[] = $row["type"];
-          $order_no [] = $row["order_no"];
+          $order_no[] = $row["order_no"];
+          if($row["HasChild"]!=""){
+            $HasChild[] = $row["HasChild"];
+          }else{
+            $HasChild[]= NULL;
+          }
         }
         
         $navBar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
-          "link"=>$link, "name"=>$name, "type"=>$type, "order_no"=>$order_no);
+          "link"=>$link, "name"=>$name, "type"=>$type, "order_no"=>$order_no, "HasChild="=>$HasChild );
           
           // rest variables to avoid confilct 
           $id[] = '';
@@ -208,7 +210,8 @@ class NavBarMenu
           $link[] = '';
           $name[] = '';
           $type[] = '';
-          $order_no [] ='';
+          $order_no[] ='';
+          $HasChild[]='';
 
 
         $resCount = $queryResult->num_rows;
@@ -349,7 +352,9 @@ $nav = new NavBarMenu;
 
 $menu = $nav->get_root_menu();
 
-var_dump($menu);
+var_dump($menu['root_menu_data']);
+
+echo $menu['navgationBar'];
 
 
 //the below function will return an array for both the count and he result 
@@ -367,7 +372,7 @@ var_dump($menu);
         
         
         ?>
-    <ul>  
+    <!-- <ul>  
         <li><a class="active" href="index.php?module=home">Home</a></li>
         <li><a href="index.php?module=news">News</a></li>
         <li><a href="index.php?module=contact">Contact</a></li>
@@ -416,7 +421,7 @@ var_dump($menu);
                 </li>
             </ul>
         </li>
-    </ul>
+    </ul> -->
 </div>
 
 
