@@ -76,10 +76,28 @@ class RoleBasedDB
 
 class NavBarMenu
 {
-    
-   
 
-    public function get_menu($get_id="", $gt_id_parent="", $get_type="", $get_HasChild="", $get_link="")
+ 
+  public function genrate_menu_tab($tabs)
+  {
+
+    $tab_count=count($tabs);
+
+    $menu = $this->get_menu("", "true", "tab", "", "true");
+    $absloute_root_menu_tab =array_unique($menu['navbar']["id_parent"]);
+    
+    return $absloute_root_menu_tab;
+  } 
+    
+    public function get_root_menu_tab()
+    {
+      $menu = $this->get_menu("", "true", "tab", "", "true");
+      $absloute_root_menu_tab =array_unique($menu['navbar']["id_parent"]);
+      
+      return $absloute_root_menu_tab;
+    }  
+
+    public function get_menu($get_id="", $get_id_parent="", $get_type="", $get_HasChild="", $get_link="")
     {
       ////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////
@@ -109,10 +127,15 @@ class NavBarMenu
         {
         $whereArr[] = "`id` = '{$get_id}'";
         }
-        if ($gt_id_parent != "")
-        {
-        $whereArr[] = "`id_parent` = '{$gt_id_parent}'";
+
+        if($get_id_parent == "true"){
+          $whereArr[] = "`id_parent` IS NOT NULL";
+        }elseif ($get_id_parent == "false" ){
+          $whereArr[] = "`id_parent` IS NULL";
+        }elseif ($get_id_parent != "" && $get_id_parent != "true" && $get_id_parent != "false"){
+          $whereArr[] = "`id_parent` = '{$get_id_parent}'";
         }
+
         if ($get_type != "")
         {
         $whereArr[] = "`type` = '{$get_type}'";
@@ -121,9 +144,13 @@ class NavBarMenu
           $whereArr[] = "`HasChild` = '{$get_HasChild}'";
         } 
 
-        if ($get_link != "") {
+        if($get_link == "true"){
           $whereArr[] = "`link` IS NOT NULL";
-        } 
+         }elseif($get_link == "false"){
+          $whereArr[] = "`link` IS NULL";
+         }elseif($get_link != "" && $get_link != "true" && $get_link != "false"){
+          $whereArr[] = "`link` = '{$get_link}'";
+         } 
 
 
         // escaping the WHERE clause in case no parameter entered 
@@ -164,7 +191,7 @@ class NavBarMenu
           
           // rest variables to avoid confilct 
           $id[] = '';
-          $id_parent 	[] = '';
+          $id_parent[] = '';
           $icon[] = '';
           $link[] = '';
           $name[] = '';
@@ -308,18 +335,20 @@ li a:hover:not(.active) {
 
 $nav = new NavBarMenu;
 
+$menu = $nav->get_root_menu_tab();
+
+var_dump($menu);
+
 
 //the below function will return an array for both the count and he result 
-$menu= $nav->get_menu("Company","","", "", "");
-$query_itself =$menu['sql_query'];
-$queryResult =$menu['queryResult'];
-$tabCount =$menu['resCount'];
-$tabArray =$menu['navbar'];
+// $menu= $nav->get_menu("Company","","", "", "");
+// $query_itself =$menu['sql_query'];
+// $queryResult =$menu['queryResult'];
+// $tabCount =$menu['resCount'];
+// $tabArray =$menu['navbar'];
 
-$updated_menu=$nav->html_menu_tab($tabArray);
-
-
-echo $updated_menu; 
+// $updated_menu=$nav->html_menu_tab($tabArray);
+// echo $updated_menu; 
 
 
 
