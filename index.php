@@ -176,7 +176,7 @@ function get_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_link=""
     } 
 
     if ($get_link != "") {
-      $whereArr[] = "`link` = IS NOT NULL";
+      $whereArr[] = "`link` IS NOT NULL";
     } 
 
 
@@ -214,7 +214,7 @@ function get_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_link=""
 
 
 // the below function will return an array for both the count and he result 
-$res= get_menu('Profile',"", "","true");
+$res= get_menu('Profile',"", "", "true");
 
 while($row = $res['res']->fetch_assoc()) {
   $id[] = $row["id"];
