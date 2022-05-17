@@ -156,67 +156,65 @@ li a:hover:not(.active) {
 
 <?php 
 
-
-
-
-function get_menu($gt_id_parent="", $get_type="", $get_HasChild="")
+function get_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_link="")
 {
 
-  // new object for Arabicss db 
-$db = new RoleBasedDB;
-//php Creating a dynamic search query with PHP and MySQL
-$whereArr = array();
-if ($gt_id_parent != "")
-{
-$whereArr[] = "`id_parent` = '{$gt_id_parent}'";
-}
-if ($get_type != "")
-{
-$whereArr[] = "`type` = '{$get_type}'";
-}
-if ($get_HasChild != "") {
-  $whereArr[] = "`HasChild` = '{$get_HasChild}'";
-} else {
+    // new object for Arabicss db 
+    $db = new RoleBasedDB;
+    //php Creating a dynamic search query with PHP and MySQL
+    $whereArr = array();
+    if ($gt_id_parent != "")
+    {
+    $whereArr[] = "`id_parent` = '{$gt_id_parent}'";
+    }
+    if ($get_type != "")
+    {
+    $whereArr[] = "`type` = '{$get_type}'";
+    }
+    if ($get_HasChild != "") {
+      $whereArr[] = "`HasChild` = '{$get_HasChild}'";
+    } 
+
+    if ($get_link != "") {
+      $whereArr[] = "`link` = IS NOT NULL";
+    } 
+
+
+    // escaping the WHERE clause in case no parameter entered 
+    // Array to string for WHERE clause  
+    if ($whereArr == null) {
+      $whereStr = "";
+    } else {
+      $whereStr = "WHERE " . implode(" AND ", $whereArr);
+    }
+
+    if ($get_HasChild != "") {
+      // getting how many child per id if the value passed
+      $menu_sql_query ="SELECT * FROM (SELECT m1.*, 
+      (SELECT COUNT(*) FROM `module_menue` `m2` WHERE `m2`.`id_Parent`=`m1`.`id`)
+      AS `HasChild` FROM `module_menue` `m1`) AS `testy` {$whereStr} ORDER BY `order_no`;";
+
+    } else {
+      // getting only the main 
+      $menu_sql_query ="SELECT * FROM `module_menue` {$whereStr} ORDER BY `order_no`;";
+
+    }
+
+    // genrate mysql query
+    $res = $db->query($menu_sql_query);
+
+
+    $resCount = $res->num_rows;
+
+    $query_data = array("res"=>$res, "resCount"=>$resCount);
+    return $query_data;
+
 
 }
-
-// escaping the WHERE clause in case no parameter entered 
-// Array to string for WHERE clause  
-if ($whereArr == null) {
-  $whereStr = "";
-} else {
-  $whereStr = "WHERE " . implode(" AND ", $whereArr);
-}
-
-if ($get_HasChild != "") {
-  // getting how many child per id if the value passed
-  $menu_sql_query ="SELECT * FROM (SELECT m1.*, 
-  (SELECT COUNT(*) FROM `module_menue` `m2` WHERE `m2`.`id_Parent`=`m1`.`id`)
-  AS `HasChild` FROM `module_menue` `m1`) AS `testy` {$whereStr} ORDER BY `order_no`;";
-
-} else {
-  // getting only the main 
-  $menu_sql_query ="SELECT * FROM `module_menue` {$whereStr} ORDER BY `order_no`;";
-
-}
-
-// genrate mysql query
-$res = $db->query($menu_sql_query);
-
-
-$resCount = $res->num_rows;
-
-$query_data = array("res"=>$res, "resCount"=>$resCount);
-return $query_data;
-
-
-}
-
 
 
 // the below function will return an array for both the count and he result 
-$res= get_menu('Profile');
-
+$res= get_menu('Profile',"", "","true");
 
 while($row = $res['res']->fetch_assoc()) {
   $id[] = $row["id"];
@@ -246,6 +244,8 @@ $navbar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
     
 }
 $nvagationbar .="</ul>";
+
+
 
 echo $nvagationbar; 
 
