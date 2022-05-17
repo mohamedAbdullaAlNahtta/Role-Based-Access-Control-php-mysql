@@ -78,10 +78,8 @@ class NavBarMenu
 {
 
  
-  public function genrate_menu_tab($tabs)
+  public function genrate_menu_tab($tab)
   {
-
-    $tab_count=count($tabs);
 
     $menu = $this->get_menu("", "true", "tab", "", "true");
     $absloute_root_menu_tab =array_unique($menu['navbar']["id_parent"]);
@@ -89,10 +87,10 @@ class NavBarMenu
     return $absloute_root_menu_tab;
   } 
     
-    public function get_root_menu_tab()
+    public function get_root_menu()
     {
-      $menu = $this->get_menu("", "true", "tab", "", "true");
-      $absloute_root_menu_tab =array_unique($menu['navbar']["id_parent"]);
+      $menu = $this->get_menu("", "false", "", "", "");
+      $absloute_root_menu_tab =$menu['navbar'];
       
       return $absloute_root_menu_tab;
     }  
@@ -335,7 +333,7 @@ li a:hover:not(.active) {
 
 $nav = new NavBarMenu;
 
-$menu = $nav->get_root_menu_tab();
+$menu = $nav->get_root_menu();
 
 var_dump($menu);
 
