@@ -156,66 +156,71 @@ li a:hover:not(.active) {
 
 <?php 
 
-// $user_group = new UserGroup();
-// $user_pages = $user_group->get_pages();
-// // var_dump($user_pages);
-// while($row = $user_pages->fetch_assoc()) {
-// 	echo "<li><a class='has-arrow' aria-expanded='true'>".$row["groupName"]."</a>
-// 	<ul aria-expanded='true' class='collapse'>
-// 	<li><a href='index?module=".$row["pageName"]."'>".$row["pageName"]."</a></li>"."</ul></li>";
-//   }
 
 
-?>
-    <ul>
-        <?php
 
-// $db = new RoleBasedDB;
-// $menu_sql_query ="SELECT * FROM `module_menue` WHERE `id_parent`='' ORDER BY `order_no`;";
-// $res = $db->query($menu_sql_query);
+function get_menu($gt_id_parent="", $get_type="", $get_HasChild="")
+{
 
-// $resCount = $res->num_rows;
-
-// while($row = $res->fetch_assoc()) {
-//   $id[] = $row["id"];
-//   $id_parent 	[] = $row["id_parent"];
-//   $icon[] = $row["icon"];
-//   $link[] = $row["link"];
-//   $name[] = $row["name"];
-//   $type[] = $row["type"];
-//   $order_no [] = $row["order_no"];
-// }
-
-// $navbar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
-//    "link"=>$link, "name"=>$name, "type"=>$type, "order_no"=>$order_no);
-
-//   $id[] = '';
-//   $id_parent 	[] = '';
-//   $icon[] = '';
-//   $link[] = '';
-//   $name[] = '';
-//   $type[] = '';
-//   $order_no [] ='';
-
-//   $_nvagationbar='';
-//   for ($i=0; $i < $resCount ; $i++) {
-     
-//     $_nvagationbar .= "<li><a href='".$navbar["link"][$i]."' >".$navbar["name"][$i]."</a></li>";
-    
-// }
-// echo $_nvagationbar;
-// var_dump($navbar);
-
-
+  // new object for Arabicss db 
 $db = new RoleBasedDB;
-$menu_sql_query ="SELECT * FROM `module_menue` WHERE `id_parent`='Profile' ORDER BY `order_no`;";
+//php Creating a dynamic search query with PHP and MySQL
+$whereArr = array();
+if ($gt_id_parent != "")
+{
+$whereArr[] = "`id_parent` = '{$gt_id_parent}'";
+}
+if ($get_type != "")
+{
+$whereArr[] = "`type` = '{$get_type}'";
+}
+if ($get_HasChild != "") {
+  $whereArr[] = "`HasChild` = '{$get_HasChild}'";
+} else {
+
+}
+
+// escaping the WHERE clause in case no parameter entered 
+// Array to string for WHERE clause  
+if ($whereArr == null) {
+  $whereStr = "";
+} else {
+  $whereStr = "WHERE " . implode(" AND ", $whereArr);
+}
+
+if ($get_HasChild != "") {
+  // getting how many child per id if the value passed
+  $menu_sql_query ="SELECT * FROM (SELECT m1.*, 
+  (SELECT COUNT(*) FROM `module_menue` `m2` WHERE `m2`.`id_Parent`=`m1`.`id`)
+  AS `HasChild` FROM `module_menue` `m1`) AS `testy` {$whereStr} ORDER BY `order_no`;";
+
+} else {
+  // getting only the main 
+  $menu_sql_query ="SELECT * FROM `module_menue` {$whereStr} ORDER BY `order_no`;";
+
+}
+
+// genrate mysql query
 $res = $db->query($menu_sql_query);
+
 
 $resCount = $res->num_rows;
 
-while($row = $res->fetch_assoc()) {
+$query_data = array("res"=>$res, "resCount"=>$resCount);
+return $query_data;
+
+
+}
+
+
+
+// the below function will return an array for both the count and he result 
+$res= get_menu('Profile');
+
+
+while($row = $res['res']->fetch_assoc()) {
   $id[] = $row["id"];
-  $id_parent 	[] = $row["id_parent"];
+  $id_parent[] = $row["id_parent"];
   $icon[] = $row["icon"];
   $link[] = $row["link"];
   $name[] = $row["name"];
@@ -234,20 +239,22 @@ $navbar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
   $type[] = '';
   $order_no [] ='';
 
-  $_nvagationbar='';
-  for ($i=0; $i < $resCount ; $i++) {
+  $nvagationbar='<ul>';
+  for ($i=0; $i < $res['resCount'] ; $i++) {
      
-    $_nvagationbar .= "<li><a href='".$navbar["link"][$i]."' >".$navbar["name"][$i]."</a></li>";
+    $nvagationbar .= "<li><a href='".$navbar["link"][$i]."' >".$navbar["name"][$i]."</a></li>";
     
 }
-echo $_nvagationbar;
+$nvagationbar .="</ul>";
 
+echo $nvagationbar; 
 
 
 
         
         
         ?>
+    <ul>  
         <li><a class="active" href="index.php?module=home">Home</a></li>
         <li><a href="index.php?module=news">News</a></li>
         <li><a href="index.php?module=contact">Contact</a></li>
