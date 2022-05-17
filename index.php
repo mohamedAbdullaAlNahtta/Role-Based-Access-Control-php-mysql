@@ -201,9 +201,9 @@ function get_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_link=""
     }
 
     // genrate mysql query
-    $res = $db->query($menu_sql_query);
+    $queryResult = $db->query($menu_sql_query);
 
-    while($row = $res->fetch_assoc()) {
+    while($row = $queryResult->fetch_assoc()) {
       $id[] = $row["id"];
       $id_parent[] = $row["id_parent"];
       $icon[] = $row["icon"];
@@ -213,7 +213,7 @@ function get_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_link=""
       $order_no [] = $row["order_no"];
     }
     
-    $navbar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
+    $navBar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
        "link"=>$link, "name"=>$name, "type"=>$type, "order_no"=>$order_no);
       
       // rest variables to avoid confilct 
@@ -226,26 +226,37 @@ function get_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_link=""
       $order_no [] ='';
 
 
-    $resCount = $res->num_rows;
+    $resCount = $queryResult->num_rows;
 
-    $query_data = array("res"=>$res, "resCount"=>$resCount, "navbar"=>$navbar);
+    $query_data = array("queryResult"=>$queryResult, "resCount"=>$resCount, "navbar"=>$navBar);
     return $query_data;
 
 
 }
 
 
-// the below function will return an array for both the count and he result 
-$res= get_menu("profile","", "", "true");
 
-  $nvagationbar='<ul>';
-  for ($i=0; $i < $res['resCount'] ; $i++) {
+function sort_menu($tabCount, $tabArray)
+{
+  $navgationBar='<ul>';
+  for ($i=0; $i < $tabCount ; $i++) {
      
-    $nvagationbar .= "<li><a href='".$res['navbar']["link"][$i]."' >".$res['navbar']["name"][$i]."</a></li>";
+    $navgationBar .= "<li><a href='".$tabArray["link"][$i]."' >".$tabArray["name"][$i]."</a></li>";
     
+  }
+  $navgationBar .="</ul>";
+
+  return $navgationBar;
+  
 }
 
-$nvagationbar .="</ul>";
+// the below function will return an array for both the count and he result 
+$res= get_menu("profile","", "", "true");
+$tabCount =$res['resCount'];
+$tabArray =$res['navbar'];
+
+
+
 
 
 
