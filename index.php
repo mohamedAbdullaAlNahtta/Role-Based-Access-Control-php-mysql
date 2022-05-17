@@ -89,21 +89,9 @@ class NavBarMenu
     
     public function get_root_menu()
     {
-      $menu = $this->get_menu("", "false", "", "", "");
-      $root_menu =$menu['navbar'];
-      $menu_count= count($root_menu);
+     
 
-      $navgationBar ="<ul>";
-      // $mainRootNavBar = array();
-      for ($i = 0; $i < $menu_count; $i++) {
-        
-        $navgationBar .= "<li><a href='".$root_menu["link"][$i]."' >".$root_menu["name"][$i]."</a></li>";
-      }
-      $navgationBar .="</ul>";
-
-      $query_data = array("root_menu_data"=>$root_menu, "navgationBar"=>$navgationBar);
-      return $query_data;
-
+  
     }  
 
     public function get_menu($get_id="", $get_id_parent="", $get_type="", $get_HasChild="", $get_link="")
@@ -193,15 +181,15 @@ class NavBarMenu
           $name[] = $row["name"];
           $type[] = $row["type"];
           $order_no[] = $row["order_no"];
-          if($row["HasChild"]!=""){
-            $HasChild[] = $row["HasChild"];
+          if($get_HasChild != ""){
+            $Child_Count[] = $row["HasChild"];
           }else{
-            $HasChild[]= NULL;
+            $Child_Count[] = "";
           }
         }
         
         $navBar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
-          "link"=>$link, "name"=>$name, "type"=>$type, "order_no"=>$order_no, "HasChild="=>$HasChild );
+          "link"=>$link, "name"=>$name, "type"=>$type, "order_no"=>$order_no, "Child_Count"=>$Child_Count);
           
           // rest variables to avoid confilct 
           $id[] = '';
@@ -211,7 +199,7 @@ class NavBarMenu
           $name[] = '';
           $type[] = '';
           $order_no[] ='';
-          $HasChild[]='';
+          $Child_Count[]='';
 
 
         $resCount = $queryResult->num_rows;
@@ -350,11 +338,12 @@ li a:hover:not(.active) {
 
 $nav = new NavBarMenu;
 
+
+
 $menu = $nav->get_root_menu();
 
-var_dump($menu['root_menu_data']);
 
-echo $menu['navgationBar'];
+
 
 
 //the below function will return an array for both the count and he result 
@@ -372,7 +361,7 @@ echo $menu['navgationBar'];
         
         
         ?>
-    <!-- <ul>  
+    <ul>  
         <li><a class="active" href="index.php?module=home">Home</a></li>
         <li><a href="index.php?module=news">News</a></li>
         <li><a href="index.php?module=contact">Contact</a></li>
@@ -421,7 +410,7 @@ echo $menu['navgationBar'];
                 </li>
             </ul>
         </li>
-    </ul> -->
+    </ul>
 </div>
 
 
