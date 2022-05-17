@@ -156,7 +156,7 @@ li a:hover:not(.active) {
 
 <?php 
 
-function get_roots_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_link="")
+function get_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_link="")
 {
 
     // new object for Arabicss db 
@@ -236,9 +236,7 @@ function get_roots_menu($gt_id_parent="", $get_type="", $get_HasChild="", $get_l
 
 
 // the below function will return an array for both the count and he result 
-$res= get_roots_menu("profile","", "", "true");
-
-
+$res= get_menu("profile","", "", "true");
 
   $nvagationbar='<ul>';
   for ($i=0; $i < $res['resCount'] ; $i++) {
@@ -246,6 +244,7 @@ $res= get_roots_menu("profile","", "", "true");
     $nvagationbar .= "<li><a href='".$res['navbar']["link"][$i]."' >".$res['navbar']["name"][$i]."</a></li>";
     
 }
+
 $nvagationbar .="</ul>";
 
 
