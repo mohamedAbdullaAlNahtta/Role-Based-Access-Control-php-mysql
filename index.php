@@ -82,10 +82,28 @@ class NavBarMenu
     
     public function get_root_menu()
     {
-      $root = $this->get_menu("",false,"",true,"","0");
-      $menu['id'] = $root['navbar']['id'];
-      $menu['HasChild'] = $root['navbar']['id'];
-      return $menu;
+      $root         = $this->get_menu("",false,"",true,"","0");
+      $id           = $root['navbar']['id'];
+      $HasChild     = $root['navbar']['id'];
+
+      $recordCount  = $root['resCount'];
+      
+      for ($i=0; $i < $recordCount ; $i++) { 
+        if ($HasChild[0]>0) {
+          $menu     = array(
+            "id"    => 
+  
+          );
+        } else {
+          $menu     = array(
+  
+          );
+        }
+      }
+
+    
+      
+      return $root;
     }  
 
    
