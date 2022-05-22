@@ -78,33 +78,37 @@ class NavBarMenu
 {
 
  
-    // public function genrate_menu_tab($tab)
-    // {
-
-    //   $menu = $this->get_menu("", "true", "tab", "", "true");
-    //   $absloute_root_menu_tab =array_unique($menu['navbar']["id_parent"]);
-      
-    //   return $absloute_root_menu_tab;
-    // } 
+ 
     
     public function get_root_menu()
     {
-     
-
-  
+      $root = $this->get_menu("",false,"",true,"","0");
+      $menu['id'] = $root['navbar']['id'];
+      $menu['HasChild'] = $root['navbar']['id'];
+      return $menu;
     }  
 
    
+    public function html_menu_tab($tabName)
+    {
+      $menutab         = $this->get_menu($tabName)['navbar'];
+      $navgationBar    = "<ul>";
+      $navgationBar   .= "<li><a href='".$menutab["link"][0]."' >".$menutab["name"][0]."</a></li>";
+      $navgationBar   .= "</ul>";
 
-    public function html_menu_tab($parentName)
+      return $navgationBar;
+
+    }
+
+    public function html_parent_menu_child_tab($parentName)
     {
       $htmlNav     = "<li>";
       $parentTree  = $this->get_menu($parentName) ['navbar'];
-      $parentHtml  = $this->html_tab($parentTree);
+      $parentHtml  = $this->html_Parent_tab($parentTree);
       $htmlNav    .= $parentHtml; 
 
       $childTree  = $this->get_menu("",$parentName) ['navbar'];
-      $childHtml  = $this->html_menu($childTree);
+      $childHtml  = $this->html_child_menu($childTree);
 
       $htmlNav    .= $childHtml;
       $htmlNav    .= "</li>"; 
@@ -113,7 +117,7 @@ class NavBarMenu
 
     }
 
-    public function html_menu($tabArray)
+    public function html_child_menu($tabArray)
     {
       ////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////
@@ -142,7 +146,7 @@ class NavBarMenu
       
     }
     
-    public function html_tab($tabArray)
+    public function html_Parent_tab($tabArray)
     {
       ////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////
@@ -166,7 +170,7 @@ class NavBarMenu
       
     }
 
-    public function get_menu($get_id="", $get_id_parent="", $get_type="", $get_HasChild="", $get_link="")
+    public function get_menu($get_id="", $get_id_parent="", $get_type="", $get_HasChild="", $get_link="", $get_level="")
     {
       ////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////
@@ -213,11 +217,11 @@ class NavBarMenu
           $whereArr[] = "`HasChild` = '{$get_HasChild}'";
         } 
 
-        if($get_link == "true"){
+        if($get_link === true){
           $whereArr[] = "`link` IS NOT NULL";
-         }elseif($get_link == "false"){
+         }elseif($get_link === false){
           $whereArr[] = "`link` IS NULL";
-         }elseif($get_link != "" && $get_link != "true" && $get_link != "false"){
+         }elseif($get_link !== "" && $get_link !== true && $get_link !== false){
           $whereArr[] = "`link` = '{$get_link}'";
          } 
 
@@ -253,6 +257,7 @@ class NavBarMenu
             $name[]           = $row["name"];
             $type[]           = $row["type"];
             $order_no[]       = $row["order_no"];
+            $level[]          = $row["level"];
           if($get_HasChild != ""){
             $Child_Count[]  = $row["HasChild"];
           }else{
@@ -268,6 +273,7 @@ class NavBarMenu
           "name"         =>   $name, 
           "type"         =>   $type, 
           "order_no"     =>   $order_no, 
+          "level"        =>   $level, 
           "Child_Count"  =>   $Child_Count
         );
           
@@ -279,6 +285,7 @@ class NavBarMenu
           $name[]         = '';
           $type[]         = '';
           $order_no[]     = '';
+          $level[]        = '';
           $Child_Count[]  = '';
 
 
@@ -372,15 +379,20 @@ li a:hover:not(.active) {
 $nav = new NavBarMenu;
 
 
-$menu = $nav->get_menu("Profile");
+$menu = $nav->get_root_menu();
+var_dump($menu);
+$menu = $nav->html_menu_tab("Home");
+var_dump($menu);
 // $menu = $nav->get_menu("", true);
 // var_dump($menu['navbar']);
 // var_dump($menu['resCount']);
 // echo $nav->html_menu($menu['navbar']);
 // echo $nav->html_tab($menu['navbar']);
-$x = $nav->html_menu_tab('Profile');
+$x = $nav->html_parent_menu_child_tab('Profile');
 // $x = $nav->html_menu($x);
 // $x = $nav->html_menu_tab("Profile");
+
+
 
 echo $x
 
