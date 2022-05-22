@@ -352,11 +352,11 @@ li a:hover:not(.active) {
 $nav = new NavBarMenu;
 
 
-// $menu = $nav->get_menu("", false);
-$menu = $nav->get_menu("", true);
-var_dump($menu['navbar']);
+$menu = $nav->get_menu("", false);
+// $menu = $nav->get_menu("", true);
+// var_dump($menu['navbar']);
 // var_dump($menu['resCount']);
-
+echo $nav->html_menu($menu['resCount'], $menu['navbar']);
 
 
 
