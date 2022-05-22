@@ -223,7 +223,7 @@ class NavBarMenu
 
     }
 
-    public function html_menu($tabCount, $tabArray)
+    public function html_menu($tabArray)
     {
       ////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////
@@ -239,6 +239,7 @@ class NavBarMenu
       // Cell Phone +20 1093001070                          //
       ////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////// 
+      $tabCount    = count($tabArray[array_keys($tabArray)[0]]);
       $navgationBar='<ul>';
       for ($i=0; $i < $tabCount ; $i++) {
         
@@ -356,7 +357,7 @@ $menu = $nav->get_menu("", false);
 // $menu = $nav->get_menu("", true);
 // var_dump($menu['navbar']);
 // var_dump($menu['resCount']);
-echo $nav->html_menu($menu['resCount'], $menu['navbar']);
+echo $nav->html_menu($menu['navbar']);
 
 
 
