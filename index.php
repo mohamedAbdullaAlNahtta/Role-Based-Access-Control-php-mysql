@@ -125,9 +125,9 @@ class NavBarMenu
         $whereArr[] = "`id` = '{$get_id}'";
         }
 
-        if($get_id_parent == "true"){
+        if($get_id_parent == true){
           $whereArr[] = "`id_parent` IS NOT NULL";
-        }elseif ($get_id_parent == "false" ){
+        }elseif ($get_id_parent == false ){
           $whereArr[] = "`id_parent` IS NULL";
         }elseif ($get_id_parent != "" && $get_id_parent != "true" && $get_id_parent != "false"){
           $whereArr[] = "`id_parent` = '{$get_id_parent}'";
@@ -174,37 +174,50 @@ class NavBarMenu
         $queryResult = $db->query($menu_sql_query);
 
         while($row = $queryResult->fetch_assoc()) {
-          $id[] = $row["id"];
-          $id_parent[] = $row["id_parent"];
-          $icon[] = $row["icon"];
-          $link[] = $row["link"];
-          $name[] = $row["name"];
-          $type[] = $row["type"];
-          $order_no[] = $row["order_no"];
+            $id[]             = $row["id"];
+            $id_parent[]      = $row["id_parent"];
+            $icon[]           = $row["icon"];
+            $link[]           = $row["link"];
+            $name[]           = $row["name"];
+            $type[]           = $row["type"];
+            $order_no[]       = $row["order_no"];
           if($get_HasChild != ""){
-            $Child_Count[] = $row["HasChild"];
+            $Child_Count[]  = $row["HasChild"];
           }else{
-            $Child_Count[] = "";
+            $Child_Count[]  = "";
           }
         }
         
-        $navBar= array("id"=>$id, "id_parent"=>$id_parent, "icon"=>$icon,
-          "link"=>$link, "name"=>$name, "type"=>$type, "order_no"=>$order_no, "Child_Count"=>$Child_Count);
+        $navBar= array(
+          "id"           =>   $id, 
+          "id_parent"    =>   $id_parent, 
+          "icon"         =>   $icon,
+          "link"         =>   $link, 
+          "name"         =>   $name, 
+          "type"         =>   $type, 
+          "order_no"     =>   $order_no, 
+          "Child_Count"  =>   $Child_Count
+        );
           
           // rest variables to avoid confilct 
-          $id[] = '';
-          $id_parent[] = '';
-          $icon[] = '';
-          $link[] = '';
-          $name[] = '';
-          $type[] = '';
-          $order_no[] ='';
-          $Child_Count[]='';
+          $id[]           = '';
+          $id_parent[]    = '';
+          $icon[]         = '';
+          $link[]         = '';
+          $name[]         = '';
+          $type[]         = '';
+          $order_no[]     = '';
+          $Child_Count[]  = '';
 
 
         $resCount = $queryResult->num_rows;
 
-        $query_data = array("sql_query"=>$menu_sql_query, "queryResult"=>$queryResult, "resCount"=>$resCount, "navbar"=>$navBar);
+        $query_data = array(
+          "sql_query"     =>   $menu_sql_query, 
+          "queryResult"   =>   $queryResult, 
+          "resCount"      =>   $resCount, 
+          "navbar"        =>   $navBar
+        );
         return $query_data;
 
 
@@ -339,8 +352,10 @@ li a:hover:not(.active) {
 $nav = new NavBarMenu;
 
 
-
-$menu = $nav->get_root_menu();
+// $menu = $nav->get_menu("", false);
+$menu = $nav->get_menu("", true);
+var_dump($menu['navbar']);
+// var_dump($menu['resCount']);
 
 
 
