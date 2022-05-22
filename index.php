@@ -94,6 +94,78 @@ class NavBarMenu
   
     }  
 
+   
+
+    public function html_menu_tab($parentName)
+    {
+      $htmlNav     = "<li>";
+      $parentTree  = $this->get_menu($parentName) ['navbar'];
+      $parentHtml  = $this->html_tab($parentTree);
+      $htmlNav    .= $parentHtml; 
+
+      $childTree  = $this->get_menu("",$parentName) ['navbar'];
+      $childHtml  = $this->html_menu($childTree);
+
+      $htmlNav    .= $childHtml;
+      $htmlNav    .= "</li>"; 
+
+      return $htmlNav;
+
+    }
+
+    public function html_menu($tabArray)
+    {
+      ////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////
+      ////////////////////                    ////////////////
+      /////////////////   function description  //////////////
+      /////////////////                         //////////////
+      // this function genrate html based on the parameters //
+      // which you put the count of tabs and the array which//
+      // has the data itself and return a string which      //
+      // contain the html <li> menu                         //
+      ////////////////////////////////////////////////////////
+      // Developed by engineer Muhammad Abdulla El Nahtta   //
+      // Cell Phone +20 1093001070                          //
+      ////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////// 
+      $tabCount    = count($tabArray[array_keys($tabArray)[0]]);
+      $navgationBar='<ul>';
+      for ($i=0; $i < $tabCount ; $i++) {
+        
+        $navgationBar .= "<li><a href='".$tabArray["link"][$i]."' >".$tabArray["name"][$i]."</a></li>";
+        
+      }
+      $navgationBar .="</ul>";
+
+      return $navgationBar;
+      
+    }
+    
+    public function html_tab($tabArray)
+    {
+      ////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////
+      ////////////////////                    ////////////////
+      /////////////////   function description  //////////////
+      /////////////////                         //////////////
+      // this function genrate html based on the parameters //
+      // which you put the count of tabs and the array which//
+      // has the data itself and return a string which      //
+      // contain the html <a> menu tab                      //
+      ////////////////////////////////////////////////////////
+      // Developed by engineer Muhammad Abdulla El Nahtta   //
+      // Cell Phone +20 1093001070                          //
+      ////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////// 
+      $navgationBar="<a class='has-arrow' href='#' aria-expanded='true'>";        
+      $navgationBar .= "<span class='hide-menu'><i class='mdi mdi-audiobook'></i>".$tabArray["name"][0]."</span>";
+      $navgationBar .="</a>";
+  
+      return $navgationBar;
+      
+    }
+
     public function get_menu($get_id="", $get_id_parent="", $get_type="", $get_HasChild="", $get_link="")
     {
       ////////////////////////////////////////////////////////
@@ -125,11 +197,11 @@ class NavBarMenu
         $whereArr[] = "`id` = '{$get_id}'";
         }
 
-        if($get_id_parent == true){
+        if($get_id_parent === true){
           $whereArr[] = "`id_parent` IS NOT NULL";
-        }elseif ($get_id_parent == false ){
+        }elseif ($get_id_parent === false ){
           $whereArr[] = "`id_parent` IS NULL";
-        }elseif ($get_id_parent != "" && $get_id_parent != "true" && $get_id_parent != "false"){
+        }elseif ($get_id_parent !== "" && $get_id_parent !== true && $get_id_parent !== false){
           $whereArr[] = "`id_parent` = '{$get_id_parent}'";
         }
 
@@ -223,59 +295,6 @@ class NavBarMenu
 
     }
 
-    public function html_menu($tabArray)
-    {
-      ////////////////////////////////////////////////////////
-      ////////////////////////////////////////////////////////
-      ////////////////////                    ////////////////
-      /////////////////   function description  //////////////
-      /////////////////                         //////////////
-      // this function genrate html based on the parameters //
-      // which you put the count of tabs and the array which//
-      // has the data itself and return a string which      //
-      // contain the html <li> menu                         //
-      ////////////////////////////////////////////////////////
-      // Developed by engineer Muhammad Abdulla El Nahtta   //
-      // Cell Phone +20 1093001070                          //
-      ////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////// 
-      $tabCount    = count($tabArray[array_keys($tabArray)[0]]);
-      $navgationBar='<ul>';
-      for ($i=0; $i < $tabCount ; $i++) {
-        
-        $navgationBar .= "<li><a href='".$tabArray["link"][$i]."' >".$tabArray["name"][$i]."</a></li>";
-        
-      }
-      $navgationBar .="</ul>";
-
-      return $navgationBar;
-      
-    }
-    
-    public function html_menu_tab($tabArray)
-    {
-      ////////////////////////////////////////////////////////
-      ////////////////////////////////////////////////////////
-      ////////////////////                    ////////////////
-      /////////////////   function description  //////////////
-      /////////////////                         //////////////
-      // this function genrate html based on the parameters //
-      // which you put the count of tabs and the array which//
-      // has the data itself and return a string which      //
-      // contain the html <a> menu tab                      //
-      ////////////////////////////////////////////////////////
-      // Developed by engineer Muhammad Abdulla El Nahtta   //
-      // Cell Phone +20 1093001070                          //
-      ////////////////////////////////////////////////////////
-      //////////////////////////////////////////////////////// 
-      $navgationBar="<a class='has-arrow' href='#' aria-expanded='true'>";        
-      $navgationBar .= "<span class='hide-menu'><i class='mdi mdi-audiobook'></i>".$tabArray["name"][0]."</span>";
-      $navgationBar .="</a>";
-  
-      return $navgationBar;
-      
-    }
-
 
 
 }
@@ -353,24 +372,21 @@ li a:hover:not(.active) {
 $nav = new NavBarMenu;
 
 
-$menu = $nav->get_menu("", false);
+$menu = $nav->get_menu("Profile");
 // $menu = $nav->get_menu("", true);
 // var_dump($menu['navbar']);
 // var_dump($menu['resCount']);
-echo $nav->html_menu($menu['navbar']);
+// echo $nav->html_menu($menu['navbar']);
+// echo $nav->html_tab($menu['navbar']);
+$x = $nav->html_menu_tab('Profile');
+// $x = $nav->html_menu($x);
+// $x = $nav->html_menu_tab("Profile");
+
+echo $x
 
 
 
 
-//the below function will return an array for both the count and he result 
-// $menu= $nav->get_menu("Company","","", "", "");
-// $query_itself =$menu['sql_query'];
-// $queryResult =$menu['queryResult'];
-// $tabCount =$menu['resCount'];
-// $tabArray =$menu['navbar'];
-
-// $updated_menu=$nav->html_menu_tab($tabArray);
-// echo $updated_menu; 
 
 
 

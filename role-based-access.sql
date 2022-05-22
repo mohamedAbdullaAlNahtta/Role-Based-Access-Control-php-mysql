@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2022 at 05:52 PM
+-- Generation Time: May 22, 2022 at 03:15 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -29,43 +29,44 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `module_menue` (
   `id` varchar(250) NOT NULL,
-  `id_parent` varchar(250) NOT NULL,
+  `id_parent` varchar(250) DEFAULT NULL,
   `icon` varchar(250) NOT NULL,
-  `link` varchar(250) NOT NULL,
+  `link` varchar(250) DEFAULT NULL,
   `name` varchar(250) NOT NULL,
   `type` enum('tab','men') NOT NULL,
-  `order_no` int(11) NOT NULL
+  `order_no` int(11) NOT NULL,
+  `level` int(18) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `module_menue`
 --
 
-INSERT INTO `module_menue` (`id`, `id_parent`, `icon`, `link`, `name`, `type`, `order_no`) VALUES
-('About', '', '', 'index.php?module=about', 'About', 'tab', 4),
-('Company', '', '', '', 'Company', 'men', 6),
-('Company About', 'Company', '', 'index.php?module=about', 'Company About', 'tab', 4),
-('Company Contact', 'Company', '', 'index.php?module=contact', 'Company Contact', 'tab', 3),
-('Company Home', 'Company', '', 'index.php?module=home', 'Company Home', 'tab', 1),
-('Company News', 'Company', '', 'index.php?module=news', 'Company News', 'tab', 2),
-('Contact', '', '', 'index.php?module=contact', 'Contact', 'tab', 3),
-('Home', '', '', 'index.php?module=home', 'Home', 'tab', 1),
-('institution', '', '', '', 'institution', 'men', 7),
-('institution About', 'institution', '', 'index.php?module=about', 'institution About', 'tab', 4),
-('institution Contact', 'institution', '', 'index.php?module=contact', 'institution Contact', 'tab', 3),
-('institution Home', 'institution', '', 'index.php?module=home', 'institution Home', 'tab', 1),
-('institution News', 'institution', '', 'index.php?module=news', 'institution News', 'tab', 2),
-('institution user', 'institution', '', '', 'institution user', 'men', 5),
-('institution user About', 'institution user ', '', 'index.php?module=about', 'institution user About', 'tab', 4),
-('institution user Contact', 'institution user ', '', 'index.php?module=contact', 'institution user Contact', 'tab', 3),
-('institution user Home', 'institution user ', '', 'index.php?module=home', 'institution user Home', 'tab', 1),
-('institution user News', 'institution user ', '', 'index.php?module=news', 'institution user News', 'tab', 2),
-('News', '', '', 'index.php?module=news', 'News', 'tab', 2),
-('Profile', '', '', '', 'Profile', 'men', 5),
-('Profile  About', 'Profile', '', 'index.php?module=about', 'Profile  About', 'tab', 4),
-('Profile  Contact', 'Profile', '', 'index.php?module=contact', 'Profile  Contact', 'tab', 3),
-('Profile  Home', 'Profile', '', 'index.php?module=home', 'Profile  Home', 'tab', 1),
-('Profile  News', 'Profile', '', 'index.php?module=news', 'Profile  News', 'tab', 2);
+INSERT INTO `module_menue` (`id`, `id_parent`, `icon`, `link`, `name`, `type`, `order_no`, `level`) VALUES
+('About', NULL, '', 'index.php?module=about', 'About', 'tab', 4, 0),
+('Company', NULL, '', NULL, 'Company', 'men', 6, 0),
+('Company About', 'Company', '', 'index.php?module=about', 'Company About', 'tab', 4, 1),
+('Company Contact', 'Company', '', 'index.php?module=contact', 'Company Contact', 'tab', 3, 1),
+('Company Home', 'Company', '', 'index.php?module=home', 'Company Home', 'tab', 1, 1),
+('Company News', 'Company', '', 'index.php?module=news', 'Company News', 'tab', 2, 1),
+('Contact', NULL, '', 'index.php?module=contact', 'Contact', 'tab', 3, 0),
+('Home', NULL, '', 'index.php?module=home', 'Home', 'tab', 1, 0),
+('institution', NULL, '', NULL, 'institution', 'men', 7, 0),
+('institution About', 'institution', '', 'index.php?module=about', 'institution About', 'tab', 4, 1),
+('institution Contact', 'institution', '', 'index.php?module=contact', 'institution Contact', 'tab', 3, 1),
+('institution Home', 'institution', '', 'index.php?module=home', 'institution Home', 'tab', 1, 1),
+('institution News', 'institution', '', 'index.php?module=news', 'institution News', 'tab', 2, 1),
+('institution user', 'institution', '', NULL, 'institution user', 'men', 5, 1),
+('institution user About', 'institution user ', '', 'index.php?module=about', 'institution user About', 'tab', 4, 2),
+('institution user Contact', 'institution user ', '', 'index.php?module=contact', 'institution user Contact', 'tab', 3, 2),
+('institution user Home', 'institution user ', '', 'index.php?module=home', 'institution user Home', 'tab', 1, 2),
+('institution user News', 'institution user ', '', 'index.php?module=news', 'institution user News', 'tab', 2, 2),
+('News', NULL, '', 'index.php?module=news', 'News', 'tab', 2, 0),
+('Profile', NULL, '', NULL, 'Profile', 'men', 5, 0),
+('Profile  About', 'Profile', '', 'index.php?module=about', 'Profile  About', 'tab', 4, 1),
+('Profile  Contact', 'Profile', '', 'index.php?module=contact', 'Profile  Contact', 'tab', 3, 1),
+('Profile  Home', 'Profile', '', 'index.php?module=home', 'Profile  Home', 'tab', 1, 1),
+('Profile  News', 'Profile', '', 'index.php?module=news', 'Profile  News', 'tab', 2, 1);
 
 -- --------------------------------------------------------
 
