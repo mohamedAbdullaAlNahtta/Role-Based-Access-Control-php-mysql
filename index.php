@@ -465,66 +465,11 @@ li a:hover:not(.active) {
 
 $nav = new NavBarMenu;
 
-
- 
-var_dump($nav->get_2nd_level_menu('Profile'));
 $nav->testy();
 
-// var_dump($nav->get_2nd_level_menu("profile"));
-// array(2) { ["id"]=> array(4) { [0]=> string(13) "Profile Home" [1]=> string(13) "Profile News" [2]=> string(16) "Profile Contact" [3]=> string(14) "Profile About" }
-//  ["HasChild"]=> array(4) { [0]=> bool(false) [1]=> bool(false) [2]=> bool(false) [3]=> bool(false) } } 
         
 ?>
-    <ul>  
-        <li><a class="active" href="index.php?module=home">Home</a></li>
-        <li><a href="index.php?module=news">News</a></li>
-        <li><a href="index.php?module=contact">Contact</a></li>
-        <li><a href="index.php?module=about">About</a></li>
-        <li>
-            <a class="has-arrow" href="#" aria-expanded="true">
-                <span class="hide-menu"><i class="mdi mdi-audiobook"></i>Profile</span>
-            </a>
-            <ul>
-                <li><a href="index.php?module=home">Profile  Home</a></li>
-                <li><a href="index.php?module=news">Profile  News</a></li>
-                <li><a href="index.php?module=contact">Profile  Contact</a></li>
-                <li><a href="index.php?module=about">Profile  About</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="has-arrow" href="#" aria-expanded="true">
-                <span class="hide-menu"><i class="mdi mdi-audiobook"></i>Company</span>
-            </a>
-            <ul>
-                <li><a href="index.php?module=home">Company Home</a></li>
-                <li><a href="index.php?module=news">Company News</a></li>
-                <li><a href="index.php?module=contact">Company Contact</a></li>
-                <li><a href="index.php?module=about">Company About</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="has-arrow" href="#" aria-expanded="true">
-                <span class="hide-menu"><i class="mdi mdi-audiobook"></i>institution</span>
-            </a>
-            <ul>
-                <li><a href="index.php?module=home">institution Home</a></li>
-                <li><a href="index.php?module=news">institution News</a></li>
-                <li><a href="index.php?module=contact">institution Contact</a></li>
-                <li><a href="index.php?module=about">institution About</a></li>
-                <li>
-                    <a class="has-arrow" href="#" aria-expanded="true">
-                    <span class="hide-menu"><i class="mdi mdi-audiobook"></i>institution user</span>
-                    </a>
-                    <ul>
-                        <li><a href="index.php?module=home">institution user Home</a></li>
-                        <li><a href="index.php?module=news">institution user News</a></li>
-                        <li><a href="index.php?module=contact">institution user Contact</a></li>
-                        <li><a href="index.php?module=about">institution user About</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
+ 
 </div>
 
 

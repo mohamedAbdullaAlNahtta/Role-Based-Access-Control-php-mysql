@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 22, 2022 at 03:15 PM
+-- Generation Time: May 23, 2022 at 09:04 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -33,7 +33,7 @@ CREATE TABLE `module_menue` (
   `icon` varchar(250) NOT NULL,
   `link` varchar(250) DEFAULT NULL,
   `name` varchar(250) NOT NULL,
-  `type` enum('tab','men') NOT NULL,
+  `type` enum('tab','men') NOT NULL DEFAULT 'tab',
   `order_no` int(11) NOT NULL,
   `level` int(18) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -50,6 +50,8 @@ INSERT INTO `module_menue` (`id`, `id_parent`, `icon`, `link`, `name`, `type`, `
 ('Company Home', 'Company', '', 'index.php?module=home', 'Company Home', 'tab', 1, 1),
 ('Company News', 'Company', '', 'index.php?module=news', 'Company News', 'tab', 2, 1),
 ('Contact', NULL, '', 'index.php?module=contact', 'Contact', 'tab', 3, 0),
+('Contact Home', 'Contact', '', 'index.php?module=home', 'Contact Home', 'tab', 1, 1),
+('Contact News', 'Contact', '', 'index.php?module=news', 'Contact News', 'tab', 2, 1),
 ('Home', NULL, '', 'index.php?module=home', 'Home', 'tab', 1, 0),
 ('institution', NULL, '', NULL, 'institution', 'men', 7, 0),
 ('institution About', 'institution', '', 'index.php?module=about', 'institution About', 'tab', 4, 1),
