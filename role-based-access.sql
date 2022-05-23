@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2022 at 09:04 AM
+-- Generation Time: May 23, 2022 at 03:33 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -73,10 +73,33 @@ INSERT INTO `module_menu` (`id`, `id_parent`, `icon`, `link`, `name`, `type`, `o
 -- --------------------------------------------------------
 
 --
--- Table structure for table `userrole`
+-- Table structure for table `users`
 --
 
-CREATE TABLE `userrole` (
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(250) NOT NULL,
+  `password` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`) VALUES
+(1, 'Ahmed', 'password'),
+(2, 'Mohamed', 'password'),
+(3, 'Ali', 'password'),
+(4, 'Omar', 'password'),
+(5, 'Mahmoud', 'password');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_role`
+--
+
+CREATE TABLE `user_role` (
   `id` int(11) NOT NULL,
   `name` varchar(250) NOT NULL,
   `description` varchar(250) NOT NULL,
@@ -85,16 +108,26 @@ CREATE TABLE `userrole` (
   `createdBy` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `user_role`
+--
+
+INSERT INTO `user_role` (`id`, `name`, `description`, `status`, `creationDate`, `createdBy`) VALUES
+(1, 'Admininstrator', 'Super Admin', 'Active', '2022-05-23 15:31:42', 'Mohamed'),
+(2, 'Call Center', 'Call Center Team', 'Active', '2022-05-23 15:32:33', 'Mohamed'),
+(3, 'Tech Team', 'Technical support Team', 'Active', '2022-05-23 15:32:33', 'Mohamed');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table `user_role_module_menu`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `user_role_module_menu` (
   `id` int(11) NOT NULL,
-  `username` varchar(250) NOT NULL,
-  `password` varchar(250) NOT NULL
+  `user_role_id` int(11) NOT NULL,
+  `module_menu_id` varchar(250) NOT NULL,
+  `access_type` enum('read','write') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -109,15 +142,21 @@ ALTER TABLE `module_menu`
   ADD UNIQUE KEY `id` (`id`);
 
 --
--- Indexes for table `userrole`
---
-ALTER TABLE `userrole`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_role`
+--
+ALTER TABLE `user_role`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_role_module_menu`
+--
+ALTER TABLE `user_role_module_menu`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -125,15 +164,21 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `userrole`
---
-ALTER TABLE `userrole`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `user_role`
+--
+ALTER TABLE `user_role`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `user_role_module_menu`
+--
+ALTER TABLE `user_role_module_menu`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
