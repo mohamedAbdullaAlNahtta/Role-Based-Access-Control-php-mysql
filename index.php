@@ -77,32 +77,59 @@ class RoleBasedDB
 class NavBarMenu
 {
 
+
+    public $errorMessage=array();
+
  
  
     
-    public function get_root_menu()
+    public function get_1st_level_menu()
     {
       $root         = $this->get_menu("",false,"",true,"","0");
-      $id           = $root['navbar']['id'];
-      $HasChild     = $root['navbar']['id'];
-
-      $recordCount  = $root['resCount'];
-      
-      for ($i=0; $i < $recordCount ; $i++) { 
-        if ($HasChild[0]>0) {
-          $menu     = array(
-            "id"    => 
+      if ($root['resCount']>0) {
+        $id           = $root['navbar']['id'];
+        $Child_Count     = $root['navbar']['Child_Count'];
   
-          );
-        } else {
-          $menu     = array(
-  
-          );
+        $recordCount  = $root['resCount'];
+        
+        for ($i=0; $i < $recordCount ; $i++) { 
+          if ($Child_Count[$i]>0) 
+                $HasChild[$i]    = true;
+          else  $HasChild[$i]    = false;
         }
+  
+        $menu     = array(
+          "id"          => $id,
+          "HasChild"    => $HasChild,
+        );
+        return $menu;
+      }else{
+        $errorMessage = "You have an Error getting 1st level menu function";
+        $this->errorMessage = array_push($this->errorMessage,$errorMessage);
       }
+     
+    }  
 
-    
+
+    public function get_2nd_level_menu()
+    {
+      $root         = $this->get_menu("",false,"",true,"","1");
+      // $id           = $root['navbar']['id'];
+      // $Child_Count     = $root['navbar']['Child_Count'];
+
+      // $recordCount  = $root['resCount'];
       
+      // for ($i=0; $i < $recordCount ; $i++) { 
+      //   if ($Child_Count[$i]>0) 
+      //         $HasChild[$i]    = true;
+      //   else  $HasChild[$i]    = false;
+      // }
+
+      // $menu     = array(
+      //   "id"          => $id,
+      //   "HasChild"    => $HasChild,
+      // );
+      // return $menu;
       return $root;
     }  
 
@@ -233,7 +260,11 @@ class NavBarMenu
         }
         if ($get_HasChild != "" && $get_HasChild != "true") {
           $whereArr[] = "`HasChild` = '{$get_HasChild}'";
-        } 
+        }
+        
+        if ($get_level !== "") {
+          $whereArr[] = "`level` = '{$get_level}'";
+        }
 
         if($get_link === true){
           $whereArr[] = "`link` IS NOT NULL";
@@ -397,7 +428,7 @@ li a:hover:not(.active) {
 $nav = new NavBarMenu;
 
 
-$menu = $nav->get_root_menu();
+$menu = $nav->get_2nd_level_menu()['resCount'];
 var_dump($menu);
 $menu = $nav->html_menu_tab("Home");
 var_dump($menu);
