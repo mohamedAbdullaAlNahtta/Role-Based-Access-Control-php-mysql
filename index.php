@@ -324,12 +324,12 @@ class NavBarMenu
         if ($get_HasChild != "") {
           // getting how many child per id if the value passed
           $menu_sql_query ="SELECT * FROM (SELECT m1.*, 
-          (SELECT COUNT(*) FROM `module_menue` `m2` WHERE `m2`.`id_Parent`=`m1`.`id`)
-          AS `HasChild` FROM `module_menue` `m1`) AS `testy` {$whereStr} ORDER BY `order_no`;";
+          (SELECT COUNT(*) FROM `module_menu` `m2` WHERE `m2`.`id_Parent`=`m1`.`id`)
+          AS `HasChild` FROM `module_menu` `m1`) AS `testy` {$whereStr} ORDER BY `order_no`;";
 
         } else {
           // getting only the main 
-          $menu_sql_query ="SELECT * FROM `module_menue` {$whereStr} ORDER BY `order_no`;";
+          $menu_sql_query ="SELECT * FROM `module_menu` {$whereStr} ORDER BY `order_no`;";
 
         }
 

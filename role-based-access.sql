@@ -24,10 +24,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `module_menue`
+-- Table structure for table `module_menu`
 --
 
-CREATE TABLE `module_menue` (
+CREATE TABLE `module_menu` (
   `id` varchar(250) NOT NULL,
   `id_parent` varchar(250) DEFAULT NULL,
   `icon` varchar(250) NOT NULL,
@@ -39,10 +39,10 @@ CREATE TABLE `module_menue` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `module_menue`
+-- Dumping data for table `module_menu`
 --
 
-INSERT INTO `module_menue` (`id`, `id_parent`, `icon`, `link`, `name`, `type`, `order_no`, `level`) VALUES
+INSERT INTO `module_menu` (`id`, `id_parent`, `icon`, `link`, `name`, `type`, `order_no`, `level`) VALUES
 ('About', NULL, '', 'index.php?module=about', 'About', 'tab', 4, 0),
 ('Company', NULL, '', NULL, 'Company', 'men', 6, 0),
 ('Company About', 'Company', '', 'index.php?module=about', 'Company About', 'tab', 4, 1),
@@ -102,9 +102,9 @@ CREATE TABLE `users` (
 --
 
 --
--- Indexes for table `module_menue`
+-- Indexes for table `module_menu`
 --
-ALTER TABLE `module_menue`
+ALTER TABLE `module_menu`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `id` (`id`);
 
