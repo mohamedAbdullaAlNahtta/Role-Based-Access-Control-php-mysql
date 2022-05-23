@@ -77,60 +77,73 @@ class RoleBasedDB
 class NavBarMenu
 {
 
-
-    public $errorMessage=array();
-
  
  
     
     public function get_1st_level_menu()
     {
       $root         = $this->get_menu("",false,"",true,"","0");
-      if ($root['resCount']>0) {
-        $id           = $root['navbar']['id'];
-        $Child_Count     = $root['navbar']['Child_Count'];
-  
-        $recordCount  = $root['resCount'];
-        
-        for ($i=0; $i < $recordCount ; $i++) { 
-          if ($Child_Count[$i]>0) 
-                $HasChild[$i]    = true;
-          else  $HasChild[$i]    = false;
-        }
-  
-        $menu     = array(
-          "id"          => $id,
-          "HasChild"    => $HasChild,
-        );
-        return $menu;
-      }else{
-        $errorMessage = "You have an Error getting 1st level menu function";
-        $this->errorMessage = array_push($this->errorMessage,$errorMessage);
+      $id           = $root['navbar']['id'];
+      $Child_Count     = $root['navbar']['Child_Count'];
+
+      $recordCount  = $root['resCount'];
+      
+      for ($i=0; $i < $recordCount ; $i++) { 
+        if ($Child_Count[$i]>0) 
+              $HasChild[$i]    = true;
+        else  $HasChild[$i]    = false;
       }
-     
+
+      $menu     = array(
+        "id"          => $id,
+        "HasChild"    => $HasChild,
+      );
+      return $menu;
     }  
 
 
     public function get_2nd_level_menu()
     {
-      $root         = $this->get_menu("",false,"",true,"","1");
-      // $id           = $root['navbar']['id'];
-      // $Child_Count     = $root['navbar']['Child_Count'];
+      $root         = $this->get_menu("",true,"",true,"","1");
+      $id           = $root['navbar']['id'];
+      $Child_Count     = $root['navbar']['Child_Count'];
 
-      // $recordCount  = $root['resCount'];
+      $recordCount  = $root['resCount'];
       
-      // for ($i=0; $i < $recordCount ; $i++) { 
-      //   if ($Child_Count[$i]>0) 
-      //         $HasChild[$i]    = true;
-      //   else  $HasChild[$i]    = false;
-      // }
+      for ($i=0; $i < $recordCount ; $i++) { 
+        if ($Child_Count[$i]>0) 
+              $HasChild[$i]    = true;
+        else  $HasChild[$i]    = false;
+      }
 
-      // $menu     = array(
-      //   "id"          => $id,
-      //   "HasChild"    => $HasChild,
-      // );
-      // return $menu;
-      return $root;
+      $menu     = array(
+        "id"          => $id,
+        "HasChild"    => $HasChild,
+      );
+      return $menu;
+      
+    } 
+    
+    public function get_3rd_level_menu()
+    {
+      $root         = $this->get_menu("",true,"",true,"","2");
+      $id           = $root['navbar']['id'];
+      $Child_Count     = $root['navbar']['Child_Count'];
+
+      $recordCount  = $root['resCount'];
+      
+      for ($i=0; $i < $recordCount ; $i++) { 
+        if ($Child_Count[$i]>0) 
+              $HasChild[$i]    = true;
+        else  $HasChild[$i]    = false;
+      }
+
+      $menu     = array(
+        "id"          => $id,
+        "HasChild"    => $HasChild,
+      );
+      return $menu;
+      
     }  
 
    
@@ -428,7 +441,7 @@ li a:hover:not(.active) {
 $nav = new NavBarMenu;
 
 
-$menu = $nav->get_2nd_level_menu()['resCount'];
+$menu = $nav->get_3rd_level_menu();
 var_dump($menu);
 $menu = $nav->html_menu_tab("Home");
 var_dump($menu);
