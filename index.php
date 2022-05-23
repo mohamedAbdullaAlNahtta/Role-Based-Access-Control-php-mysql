@@ -84,11 +84,9 @@ class NavBarMenu
   // Cell Phone +20 109 300 1070                        //
   ////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////// 
-
-    public $htmlNavBar = "<ul>";
  
 
-    public function testy(){
+    public function get_html_nav_bar(){
       $first_lavel = $this->get_1st_level_menu();
 
       $tabCount = count($first_lavel['id']);
@@ -465,7 +463,7 @@ li a:hover:not(.active) {
 
 $nav = new NavBarMenu;
 
-$nav->testy();
+$nav->get_html_nav_bar();
 
         
 ?>
