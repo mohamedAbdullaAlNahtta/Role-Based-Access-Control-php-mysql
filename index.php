@@ -76,8 +76,57 @@ class RoleBasedDB
 
 class NavBarMenu
 {
+  ////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////
+  // Note Maximum level of tabs is 3 levels 0, 1, and 2///
+  ////////////////////////////////////////////////////////
+  // Developed by engineer Muhammad Abdulla El Nahtta   //
+  // Cell Phone +20 109 300 1070                        //
+  ////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////// 
 
+    public $htmlNavBar = "<ul>";
  
+
+    public function testy(){
+      $first_lavel = $this->get_1st_level_menu();
+
+      $tabCount = count($first_lavel['id']);
+
+      $nav_trial  = "<ul>";
+
+      for ($i=0; $i <$tabCount ; $i++) { 
+            if ($first_lavel['HasChild'][$i]===false) {
+                  // checking if there is sub menu for the first level tabs
+                  $nav_trial .= $this->html_menu_tab($first_lavel['id'][$i]);
+            } elseif($first_lavel['HasChild'][$i]===true) {
+
+                  $nav_trial .="<li>";
+                  $nav_trial .= $this->html_Parent_tab($first_lavel['id'][$i]);
+
+                  // going through 2nd level tabs 
+                  $second_lavel = $this->get_2nd_level_menu($first_lavel['id'][$i]);
+                  $secondLevelTabCount = count($second_lavel['id']);
+                  $nav_trial .="<ul>";
+                  for ($x=0; $x <$secondLevelTabCount; $x++) { 
+                            
+                            if ($second_lavel['HasChild'][$x]===false) {
+                                    $nav_trial .= $this->html_menu_tab($second_lavel['id'][$x]);
+                            } elseif($second_lavel['HasChild'][$x]===true) {
+                                    # code...
+                                    $nav_trial .= $this->html_parent_menu_child_tab_final($second_lavel['id'][$x]);
+                            }
+                             
+                  }
+                  $nav_trial .="</ul>"; 
+                  $nav_trial .="</li>";
+            }
+      }
+
+      $nav_trial .= "</ul>";
+
+      echo $nav_trial;
+    }
  
     
     public function get_1st_level_menu()
@@ -102,9 +151,9 @@ class NavBarMenu
     }  
 
 
-    public function get_2nd_level_menu()
+    public function get_2nd_level_menu($parent)
     {
-      $root         = $this->get_menu("",true,"",true,"","1");
+      $root         = $this->get_menu("",$parent,"",true,"","1");
       $id           = $root['navbar']['id'];
       $Child_Count     = $root['navbar']['Child_Count'];
 
@@ -124,45 +173,20 @@ class NavBarMenu
       
     } 
     
-    public function get_3rd_level_menu()
-    {
-      $root         = $this->get_menu("",true,"",true,"","2");
-      $id           = $root['navbar']['id'];
-      $Child_Count     = $root['navbar']['Child_Count'];
-
-      $recordCount  = $root['resCount'];
-      
-      for ($i=0; $i < $recordCount ; $i++) { 
-        if ($Child_Count[$i]>0) 
-              $HasChild[$i]    = true;
-        else  $HasChild[$i]    = false;
-      }
-
-      $menu     = array(
-        "id"          => $id,
-        "HasChild"    => $HasChild,
-      );
-      return $menu;
-      
-    }  
-
    
     public function html_menu_tab($tabName)
     {
       $menutab         = $this->get_menu($tabName)['navbar'];
-      $navgationBar    = "<ul>";
-      $navgationBar   .= "<li><a href='".$menutab["link"][0]."' >".$menutab["name"][0]."</a></li>";
-      $navgationBar   .= "</ul>";
-
+      $navgationBar    =  "<li><a href='".$menutab["link"][0]."' >".$menutab["name"][0]."</a></li>";
       return $navgationBar;
 
     }
 
-    public function html_parent_menu_child_tab($parentName)
+    public function html_parent_menu_child_tab_final($parentName)
     {
       $htmlNav     = "<li>";
       $parentTree  = $this->get_menu($parentName) ['navbar'];
-      $parentHtml  = $this->html_Parent_tab($parentTree);
+      $parentHtml  = $this->html_Parent_tab($parentName);
       $htmlNav    .= $parentHtml; 
 
       $childTree  = $this->get_menu("",$parentName) ['navbar'];
@@ -204,7 +228,7 @@ class NavBarMenu
       
     }
     
-    public function html_Parent_tab($tabArray)
+    public function html_Parent_tab($parentName)
     {
       ////////////////////////////////////////////////////////
       ////////////////////////////////////////////////////////
@@ -220,8 +244,9 @@ class NavBarMenu
       // Cell Phone +20 1093001070                          //
       ////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////// 
-      $navgationBar="<a class='has-arrow' href='#' aria-expanded='true'>";        
-      $navgationBar .= "<span class='hide-menu'><i class='mdi mdi-audiobook'></i>".$tabArray["name"][0]."</span>";
+      $tabArray      = $this->get_menu($parentName);
+      $navgationBar  ="<a class='has-arrow' href='#' aria-expanded='true'>";        
+      $navgationBar .= "<span class='hide-menu'><i class='mdi mdi-audiobook'></i>".$tabArray["navbar"]["id"][0]."</span>";
       $navgationBar .="</a>";
   
       return $navgationBar;
@@ -441,32 +466,15 @@ li a:hover:not(.active) {
 $nav = new NavBarMenu;
 
 
-$menu = $nav->get_3rd_level_menu();
-var_dump($menu);
-$menu = $nav->html_menu_tab("Home");
-var_dump($menu);
-// $menu = $nav->get_menu("", true);
-// var_dump($menu['navbar']);
-// var_dump($menu['resCount']);
-// echo $nav->html_menu($menu['navbar']);
-// echo $nav->html_tab($menu['navbar']);
-$x = $nav->html_parent_menu_child_tab('Profile');
-// $x = $nav->html_menu($x);
-// $x = $nav->html_menu_tab("Profile");
+ 
+var_dump($nav->get_2nd_level_menu('Profile'));
+$nav->testy();
 
-
-
-echo $x
-
-
-
-
-
-
-
+// var_dump($nav->get_2nd_level_menu("profile"));
+// array(2) { ["id"]=> array(4) { [0]=> string(13) "Profile Home" [1]=> string(13) "Profile News" [2]=> string(16) "Profile Contact" [3]=> string(14) "Profile About" }
+//  ["HasChild"]=> array(4) { [0]=> bool(false) [1]=> bool(false) [2]=> bool(false) [3]=> bool(false) } } 
         
-        
-        ?>
+?>
     <ul>  
         <li><a class="active" href="index.php?module=home">Home</a></li>
         <li><a href="index.php?module=news">News</a></li>
