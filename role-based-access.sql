@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2022 at 06:09 PM
+-- Generation Time: May 24, 2022 at 01:08 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.0.13
 
@@ -161,7 +161,7 @@ INSERT INTO `user_role_module_menu` (`id`, `user_role_id`, `module_menu_id`, `ac
 (23, 1, 'Profile', 'read'),
 (24, 1, 'institution user', 'read'),
 (25, 1, 'Company', 'read'),
-(26, 2, 'institution', 'read'),
+(26, 1, 'institution', 'read'),
 (27, 2, 'institution user Home', 'read'),
 (28, 2, 'Company News', 'read'),
 (29, 2, 'Contact News', 'read'),
