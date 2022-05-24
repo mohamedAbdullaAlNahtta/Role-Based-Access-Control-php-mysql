@@ -86,8 +86,8 @@ class NavBarMenu
   //////////////////////////////////////////////////////// 
  
 
-    public function get_html_nav_bar(){
-      $first_lavel = $this->get_1st_level_menu();
+    public function get_html_nav_bar($user_role_mod){
+      $first_lavel = $this->get_1st_level_menu($user_role_mod);
 
       $tabCount = count($first_lavel['id']);
 
@@ -103,16 +103,16 @@ class NavBarMenu
                   $nav_trial .= $this->html_Parent_tab($first_lavel['id'][$i]);
 
                   // going through 2nd level tabs 
-                  $second_lavel = $this->get_2nd_level_menu($first_lavel['id'][$i]);
+                  $second_lavel = $this->get_2nd_level_menu($first_lavel['id'][$i],$user_role_mod);
                   $secondLevelTabCount = count($second_lavel['id']);
                   $nav_trial .="<ul>";
                   for ($x=0; $x <$secondLevelTabCount; $x++) { 
                             
                             if ($second_lavel['HasChild'][$x]===false) {
-                                    $nav_trial .= $this->html_menu_tab($second_lavel['id'][$x]);
+                                    $nav_trial .= $this->html_menu_tab($second_lavel['id'][$x],$user_role_mod);
                             } elseif($second_lavel['HasChild'][$x]===true) {
                                     # code...
-                                    $nav_trial .= $this->html_parent_menu_child_tab_final($second_lavel['id'][$x]);
+                                    $nav_trial .= $this->html_parent_menu_child_tab_final($second_lavel['id'][$x],$user_role_mod);
                             }
                              
                   }
@@ -127,9 +127,9 @@ class NavBarMenu
     }
  
     
-    public function get_1st_level_menu()
+    public function get_1st_level_menu($user_role_mod)
     {
-      $root         = $this->get_menu("",false,"",true,"","0");
+      $root         = $this->get_menu("",false,"",true,"","0",$user_role_mod);
       $id           = $root['navbar']['id'];
       $Child_Count     = $root['navbar']['Child_Count'];
 
@@ -149,9 +149,9 @@ class NavBarMenu
     }  
 
 
-    public function get_2nd_level_menu($parent)
+    public function get_2nd_level_menu($parent,$user_role_mod)
     {
-      $root         = $this->get_menu("",$parent,"",true,"","1");
+      $root         = $this->get_menu("",$parent,"",true,"","1",$user_role_mod);
       $id           = $root['navbar']['id'];
       $Child_Count     = $root['navbar']['Child_Count'];
 
@@ -180,14 +180,14 @@ class NavBarMenu
 
     }
 
-    public function html_parent_menu_child_tab_final($parentName)
+    public function html_parent_menu_child_tab_final($parentName, $user_role_mod)
     {
       $htmlNav     = "<li>";
       $parentTree  = $this->get_menu($parentName) ['navbar'];
       $parentHtml  = $this->html_Parent_tab($parentName);
       $htmlNav    .= $parentHtml; 
 
-      $childTree  = $this->get_menu("",$parentName) ['navbar'];
+      $childTree  = $this->get_menu("",$parentName,"","","","",$user_role_mod) ['navbar'];
       $childHtml  = $this->html_child_menu($childTree);
 
       $htmlNav    .= $childHtml;
@@ -251,7 +251,7 @@ class NavBarMenu
       
     }
 
-    public function get_menu($get_id="", $get_id_parent="", $get_type="", $get_HasChild="", $get_link="", $get_level="")
+    public function get_menu($get_id="", $get_id_parent="", $get_type="", $get_HasChild="", $get_link="", $get_level="", $get_user_role="")
     {
       ////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////
@@ -280,6 +280,11 @@ class NavBarMenu
         if ($get_id != "")
         {
         $whereArr[] = "`id` = '{$get_id}'";
+        }
+
+        if ($get_user_role != "")
+        {
+        $whereArr[] = "`id` IN (SELECT `module_menu_id` FROM `user_role_module_menu` WHERE `user_role_id`={$get_user_role} )";
         }
 
         if($get_id_parent === true){
@@ -463,7 +468,9 @@ li a:hover:not(.active) {
 
 $nav = new NavBarMenu;
 
-$nav->get_html_nav_bar();
+var_dump($nav->get_menu("",false,"",true,"","0",1)['sql_query']);
+
+$nav->get_html_nav_bar(1);
 
         
 ?>
