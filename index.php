@@ -86,7 +86,19 @@ class NavBarMenu
   //////////////////////////////////////////////////////// 
  
 
-    public function get_html_nav_bar($user_role_mod){
+    public function get_html_nav_bar($user_role_mod)
+    {
+
+      ////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////
+      // this function to get the html navgation bar only ////
+      // the authorized tabs                               ///
+      ////////////////////////////////////////////////////////
+      // Developed by engineer Muhammad Abdulla El Nahtta   //
+      // Cell Phone +20 109 300 1070                        //
+      ////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////// 
+
       $first_lavel = $this->get_1st_level_menu($user_role_mod);
 
       $tabCount = count($first_lavel['id']);
@@ -129,6 +141,14 @@ class NavBarMenu
     
     public function get_1st_level_menu($user_role_mod)
     {
+      ////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////
+      // getting the first level tabs and menus            ///
+      ////////////////////////////////////////////////////////
+      // Developed by engineer Muhammad Abdulla El Nahtta   //
+      // Cell Phone +20 109 300 1070                        //
+      ////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////
       $root         = $this->get_menu("",false,"",true,"","0",$user_role_mod);
       $id           = $root['navbar']['id'];
       $Child_Count     = $root['navbar']['Child_Count'];
@@ -468,9 +488,7 @@ li a:hover:not(.active) {
 
 $nav = new NavBarMenu;
 
-var_dump($nav->get_menu("",false,"",true,"","0",1)['sql_query']);
-
-$nav->get_html_nav_bar(1);
+$nav->get_html_nav_bar(3);
 
         
 ?>
